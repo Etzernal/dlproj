@@ -22,19 +22,17 @@ class Lung_Train_Dataset(Dataset):
 		self.img_size = (150, 150)
 		
 		# Only two classes will be considered here (normal and infected)
-		self.classes = {0: 'normal', 1: 'infected_covid', 2:'infected_non_covid'}
+		self.classes = {0: 'infected_covid', 1:'infected_non_covid'}
 		
 		# The dataset consists only of training images
 		self.groups = 'train'
 		
 		# Number of images in each part of the dataset
-		self.dataset_numbers = {'train_normal': 1341,\
-								'train_infected_covid': 1345,\
+		self.dataset_numbers = {'train_infected_covid': 1345,\
 								'train_infected_non_covid':2530}
 		
 		# Path to images for different parts of the dataset
-		self.dataset_paths = {'train_normal': './dataset/train/normal',\
-							  'train_infected_covid': './dataset/train/infected/covid',\
+		self.dataset_paths = {'train_infected_covid': './dataset/train/infected/covid',\
 							  'train_infected_non_covid':'./dataset/train/infected/non-covid'}
 		
 		
@@ -115,17 +113,12 @@ class Lung_Train_Dataset(Dataset):
 		
 		# Get item special method
 		first_val = int(list(self.dataset_numbers.values())[0])
-		second_val = int(list(self.dataset_numbers.values())[1])
 		if index < first_val:
-			class_val = 'train_normal'
-			label = torch.Tensor([1, 0])
-		elif index < first_val + second_val:
 			class_val = 'train_infected_covid'
-			index = index - first_val
-			label = torch.Tensor([0, 1])
+			label = torch.Tensor([1, 0])
 		else:
 			class_val = "train_infected_non_covid"
-			index = index - first_val - second_val
+			index = index - first_val
 			label = torch.Tensor([0, 1])
 		im = self.open_img(class_val, index)
 		im = transforms.functional.to_tensor(np.array(im)).float()
@@ -146,19 +139,17 @@ class Lung_Val_Dataset(Dataset):
 		self.img_size = (150, 150)
 		
 		# Only two classes will be considered here (normal and infected)
-		self.classes = {0: 'normal', 1: 'infected covid', 2: 'infected non-covid'}
+		self.classes = {0: 'infected covid', 1: 'infected non-covid'}
 		
 		# The dataset consists only of training images
 		self.groups = 'val'
 		
 		# Number of images in each part of the dataset
-		self.dataset_numbers = {'val_normal': 8,\
-								'val_infected_covid': 8,\
+		self.dataset_numbers = {'val_infected_covid': 8,\
 								'val_infected_non_covid':8}
 		
 		# Path to images for different parts of the dataset
-		self.dataset_paths = {'val_normal': './dataset/val/normal',\
-							  'val_infected_covid': './dataset/val/infected/covid',\
+		self.dataset_paths = {'val_infected_covid': './dataset/val/infected/covid',\
 							  'val_infected_non_covid':'./dataset/val/infected/non-covid'}
 		
 		
@@ -241,15 +232,11 @@ class Lung_Val_Dataset(Dataset):
 		# Get item special method
 		first_val = int(list(self.dataset_numbers.values())[0])
 		if index < first_val:
-			class_val = 'val_normal'
-			label = torch.Tensor([1, 0])
-		elif index < first_val + second_val:
 			class_val = 'val_infected_covid'
-			index = index - first_val
-			label = torch.Tensor([0, 1])
+			label = torch.Tensor([1, 0])
 		else:
 			class_val = "val_infected_non_covid"
-			index = index - first_val - second_val
+			index = index - first_val
 			label = torch.Tensor([0, 1])
 		im = self.open_img(class_val, index)
 		im = transforms.functional.to_tensor(np.array(im)).float()
@@ -270,19 +257,17 @@ class Lung_Test_Dataset(Dataset):
 		self.img_size = (150, 150)
 		
 		# Only two classes will be considered here (normal and infected)
-		self.classes = {0: 'normal', 1: 'infected covid', 2: 'infected non-covid'}
+		self.classes = {0: 'infected covid', 1: 'infected non-covid'}
 		
 		# The dataset consists only of training images
 		self.groups = 'test'
 		
 		# Number of images in each part of the dataset
-		self.dataset_numbers = {'test_normal': 234,\
-								'test_infected_covid': 138,\
+		self.dataset_numbers = {'test_infected_covid': 138,\
 								'test_infected_non_covid':242}
 		
 		# Path to images for different parts of the dataset
-		self.dataset_paths = { 'test_normal': './dataset/test/normal',\
-							  'test_infected_covid': './dataset/test/infected/covid',\
+		self.dataset_paths = {'test_infected_covid': './dataset/test/infected/covid',\
 							  'test_infected_non_covid':'./dataset/test/infected/non-covid'}
 		
 		
@@ -365,12 +350,8 @@ class Lung_Test_Dataset(Dataset):
 		# Get item special method
 		first_val = int(list(self.dataset_numbers.values())[0])
 		if index < first_val:
-			class_val = 'test_normal'
-			label = torch.Tensor([1, 0])
-		elif index < first_val + second_val:
 			class_val = 'test_infected_covid'
-			index = index - first_val
-			label = torch.Tensor([0, 1])
+			label = torch.Tensor([1, 0])
 		else:
 			class_val = "test_infected_non_covid"
 			index = index - first_val - second_val

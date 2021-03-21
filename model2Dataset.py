@@ -115,11 +115,11 @@ class Lung_Train_Dataset(Dataset):
 		first_val = int(list(self.dataset_numbers.values())[0])
 		if index < first_val:
 			class_val = 'train_infected_covid'
-			label = torch.Tensor([1, 0])
+			label = torch.Tensor([0])
 		else:
 			class_val = "train_infected_non_covid"
 			index = index - first_val
-			label = torch.Tensor([0, 1])
+			label = torch.Tensor([1])
 		im = self.open_img(class_val, index)
 		im = transforms.functional.to_tensor(np.array(im)).float()
 		if self.normalizer:
@@ -233,11 +233,11 @@ class Lung_Val_Dataset(Dataset):
 		first_val = int(list(self.dataset_numbers.values())[0])
 		if index < first_val:
 			class_val = 'val_infected_covid'
-			label = torch.Tensor([1, 0])
+			label = torch.Tensor([0])
 		else:
 			class_val = "val_infected_non_covid"
 			index = index - first_val
-			label = torch.Tensor([0, 1])
+			label = torch.Tensor([1])
 		im = self.open_img(class_val, index)
 		im = transforms.functional.to_tensor(np.array(im)).float()
 		if self.normalizer:
@@ -351,11 +351,11 @@ class Lung_Test_Dataset(Dataset):
 		first_val = int(list(self.dataset_numbers.values())[0])
 		if index < first_val:
 			class_val = 'test_infected_covid'
-			label = torch.Tensor([1, 0])
+			label = torch.Tensor([0])
 		else:
 			class_val = "test_infected_non_covid"
-			index = index - first_val - second_val
-			label = torch.Tensor([0, 1])
+			index = index - first_val
+			label = torch.Tensor([1])
 		im = self.open_img(class_val, index)
 		im = transforms.functional.to_tensor(np.array(im)).float()
 		if self.normalizer:
